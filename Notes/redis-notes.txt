@@ -1,0 +1,8 @@
+﻿https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504
+
+port:6379
+
+
+https://github.com/redis-developer/redis-om-dotnet-skeleton-app.git 
+
+http://localhost:8001/
