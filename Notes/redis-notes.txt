@@ -2,7 +2,24 @@
 
 port:6379
 
+set mykey "test"
+get mykey
 
 https://github.com/redis-developer/redis-om-dotnet-skeleton-app.git 
 
 http://localhost:8001/
+
+redis-cli info modules
+module:name=ReJSON,ver=...
+
+json.set test_node $ '{ "node": "blah" }'
+
+json.get test_node
+
+
+docker run -p 7000:6379 --name redis-rejson redislabs/rejson:latest
+
+docker run -d -p 7000:6379 -p 8091:8091 redis/redis-stack
+
+
+

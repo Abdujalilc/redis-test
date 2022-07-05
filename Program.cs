@@ -1,4 +1,5 @@
 using Redis.OM;
+using redis_test.HostedServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,8 +9,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddSingleton(new RedisConnectionProvider(builder.Configuration["REDIS_CONNECTION_STRING"]));
+builder.Services.AddHostedService<IndexCreationService>();
 
 var app = builder.Build();
 

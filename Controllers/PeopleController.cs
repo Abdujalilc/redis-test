@@ -21,7 +21,14 @@ namespace redis_test.Controllers
         [HttpPost]
         public async Task<Person> AddPerson([FromBody] Person person)
         {
-            await _people.InsertAsync(person);
+            try
+            {
+                await _people.InsertAsync(person);
+            }
+            catch (Exception ex) 
+            {
+
+            }
             return person;
         }
         [HttpGet("filterAge")]
