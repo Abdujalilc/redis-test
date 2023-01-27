@@ -1,5 +1,9 @@
-﻿https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504
+﻿//portable version is available in git
+https://github.com/microsoftarchive/redis/releases/tag/win-3.0.504
 
+
+//browser: RedisInsight-v2-win-installer.exe
+RedisInsight-v2-win-installer.exe
 port:6379
 
 set mykey "test"
