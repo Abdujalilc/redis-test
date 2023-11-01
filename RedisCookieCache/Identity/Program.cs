@@ -1,13 +1,20 @@
+//Now listening on: https://localhost:7166
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
 using Microsoft.Extensions.Options;
 using RedisCookieCache.RedisService;
 using RedisCookieCache.Services;
+using StackExchange.Redis;
 using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDataProtection()
+    .PersistKeysToStackExchangeRedis(ConnectionMultiplexer.Connect("127.0.0.1:6379"))
+    .SetApplicationName("some_unique_name");
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -22,8 +29,6 @@ builder.Services.AddAuthentication("CookieAuthentication")
                  .AddCookie("CookieAuthentication", config =>
                  {
                      config.Cookie.Name = "UserLoginCookie";
-                     config.LoginPath = "/Account/LoginMain";
-                     config.AccessDeniedPath = "/Account/UserAccessDenied";
                  });
 
 builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme)
