@@ -12,21 +12,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDataProtection()
     .PersistKeysToStackExchangeRedis(ConnectionMultiplexer.Connect("127.0.0.1:6379"))
     .SetApplicationName("some_unique_name");
-/*builder.Services.AddSingleton<ITicketStore, RedisCacheTicketStore>();
-builder.Services.AddOptions<CookieAuthenticationOptions>(CookieAuthenticationDefaults.AuthenticationScheme)
-    .Configure<ITicketStore>((options, store) =>
-    {
-        options.SessionStore = store;
-    });*/
 
-builder.Services.AddAuthentication(IdentityServerAuthenticationDefaults.AuthenticationScheme);
 builder.Services.ConfigureApplicationCookie(opts =>
-    opts.SessionStore = new RedisCacheTicketStore(new RedisCacheOptions()
-    {
-        Configuration = "127.0.0.1:6379"
-    })
-    );
-
+    opts.SessionStore = new RedisCacheTicketStore(new RedisCacheOptions(){ Configuration = "127.0.0.1:6379"})
+);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
